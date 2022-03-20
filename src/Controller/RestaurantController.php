@@ -134,4 +134,55 @@ class RestaurantController extends AbstractController
             return $this->redirectToRoute("restaurant.search.form");
         }
     }
+
+    /**
+     * @Route("/query/first", name="query.first")
+     * les 6 derniers restaurants créés
+     */
+    public function derniersRestaurantsCrees(ManagerRegistry $doctrine){
+        $restaurants = $doctrine->getRepository(Restaurant::class)
+            ->lastCreatedRestaurants(6);
+        dd($restaurants);
+    }
+
+    /**
+     * @Route("/query/two", name="query.two")
+     * Afficher la valeur moyenne de la note d'un restaurant
+     */
+    public function valeurMoyenneRestaurant(ManagerRegistry $doctrine){
+        $restaurant = $doctrine->getRepository(Restaurant::class)->find(3);
+        $restaurantAvgValue = $doctrine->getRepository(Restaurant::class)
+            ->avgValueOfRestaunat($restaurant);
+        dd($restaurantAvgValue);
+    }
+
+    /**
+     * @Route("/query/three", name="query.three")
+     * Afficher les 3 top meilleurs restaurants
+     */
+    public function top3Restaurants(ManagerRegistry $doctrine){
+        $top3restaurants = $doctrine->getRepository(Restaurant::class)
+            ->theThreebestRestaurants();
+        dd($top3restaurants);
+    }
+
+    /**
+     * @Route("/query/four", name="query.four")
+     * Lister les restaurants et leurs détails (review, city..)
+     */
+    public function restaurantsDetails(ManagerRegistry $doctrine){
+        $restaurants = $doctrine->getRepository(Restaurant::class)
+            ->restaurantsDetails();
+        dd($restaurants);
+    }
+
+    /**
+     * @Route("/query/five", name="query.five")
+     * classer les restaurants pas voté
+     */
+    public function restaurantPasVote(ManagerRegistry $doctrine){
+        $restaurants = $doctrine->getRepository(Restaurant::class)
+            ->restaurantNotVoted();
+        dd($restaurants);
+    }
 }

@@ -14,7 +14,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="users.show")
      */
-    public function index(ManagerRegistry $doctrine): Response
+    public function users(ManagerRegistry $doctrine): Response
     {
         $users = $doctrine->getRepository(User::class)->findAll();
         return $this->render(

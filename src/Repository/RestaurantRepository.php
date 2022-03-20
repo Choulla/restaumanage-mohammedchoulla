@@ -73,4 +73,67 @@ class RestaurantRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function lastCreatedRestaurants(int $limit){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT r FROM App\Entity\Restaurant r
+            ORDER BY r.id DESC 
+            '
+        )->setMaxResults($limit);
+        return $query->getResult();
+    }
+    public function avgValueOfRestaunat(Restaurant $restaurant){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT AVG(re.rating) 
+            from App\Entity\Restaurant r , App\Entity\Review re
+            WHERE r.id = re.restaurant_id
+            and r.id='.$restaurant->getId().'
+            GROUP BY r.name
+            '
+        );
+        return $query->getSingleScalarResult();
+    }
+    public function theThreebestRestaurants(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT r.name , AVG(re.rating) average
+            from App\Entity\Restaurant r , App\Entity\Review re
+            WHERE r.id = re.restaurant_id
+            GROUP BY r.name
+            order by average DESC
+            '
+        )->setMaxResults(3);
+        return $query->getResult();
+    }
+    public function restaurantsDetails(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT r,re,city
+            from App\Entity\Restaurant r , App\Entity\Review re , App\Entity\City city
+            WHERE r.id = re.restaurant_id
+            and r.city_id = city.id
+            '
+        );
+        return $query->getResult();
+    }
+    public function restaurantNotVoted(){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            '
+            SELECT r.name from App\Entity\Restaurant r
+            where r.id not in (
+            select res.id 
+            from App\Entity\Restaurant res, App\Entity\Review re
+            where res.id = re.restaurant_id
+            )
+            '
+        );
+        return $query->getResult();
+    }
 }

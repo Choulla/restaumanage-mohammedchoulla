@@ -55,6 +55,17 @@
                                         <li><a class="dropdown-item" href="{{ path("users.show") }}">All Users</a></li>
                                     </ul>
                                 </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Other Query</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                                        <li><a class="dropdown-item" href="{{ path("query.first") }}">les 6 derniers restaurants créés</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("query.two") }}">la valeur moyenne de la note d'un restaurant</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("query.three") }}">les 3 top meilleurs restaurants</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("query.four") }}">les restaurants et leurs détails (review, city..)</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("query.five") }}">les restaurant pas voté</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
