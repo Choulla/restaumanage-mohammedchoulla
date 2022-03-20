@@ -6,14 +6,78 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="{{ asset("css/custom.css") }}">
+            <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            <script src="{{ asset("js/bootstrap.min.js") }}"></script>
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="{{ path("home") }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+                                <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+                            </svg>
+                            Restaurant App</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarsExample09">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ path("home") }}">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Restaurant</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                                        <li><a class="dropdown-item" href="{{ path("restaurant.new") }}">Create New</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("restaurant.index") }}">All Restaurants</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("restaurant.search.form") }}">Search Restaurant</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Review</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                                        <li><a class="dropdown-item" href="{{ path("review.index") }}">Add New Review</a></li>
+                                        <li><a class="dropdown-item" href="{{ path("review.show") }}">All Reviews</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdown09">
+                                        <li><a class="dropdown-item" href="{{ path("users.show") }}">All Users</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <div class="container">
+            <br>
+            {% block body %}{% endblock %}
+        </div>
+    <footer>
+        <div class="container">
+            <div class="container">
+                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                        </a>
+                        <span class="text-muted">© 2022 basic Symfony project @Norsys Inc</span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </footer>
     </body>
 </html>

@@ -2,19 +2,28 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="app_user")
+     * @Route("/users", name="users.show")
      */
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $users = $doctrine->getRepository(User::class)->findAll();
+        return $this->render(
+            'user/index.html.twig',
+            [
+                'users' => $users
+            ]
+        );
     }
+
+
 }

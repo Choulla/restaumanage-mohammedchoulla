@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}all review{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes("success") %}
+        <p class="alert alert-success">{{ message }}</p>
+        <br>
+    {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">review</th>
+            <th scope="col">created by</th>
+            <th scope="col">restaurant</th>
+            <th scope="col">rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td>{{ review.getMessage() }}</td>
+                <td>{{ review.getUserId().getUsername() }}</td>
+                <td>{{ review.getRestaurantId().getName() }}</td>
+                <td>{{ review.getRating() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

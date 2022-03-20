@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}search a restaurants{% endblock %}
+
+{% block body %}
+
+    <form method="GET" action="{{ path("restaurant.search") }}">
+        <label for="inputPassword5" class="form-label">search by name</label>
+        <input name="restaurantName" type="text" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+    <br>
+    <input style="width: 100%" type="submit" class="btn btn-primary btn-sm" value="search"/>
+    </form>
+    <br><br>
+    {% for message in app.flashes("success") %}
+        <p class="alert alert-success">{{ message }}</p>
+        <br>
+    {% endfor %}
+    {% for message in app.flashes("danger") %}
+        <p class="alert alert-danger">{{ message }}</p>
+        <br>
+    {% endfor %}
+{% endblock %}
