@@ -142,7 +142,16 @@ class RestaurantController extends AbstractController
     public function derniersRestaurantsCrees(ManagerRegistry $doctrine){
         $restaurants = $doctrine->getRepository(Restaurant::class)
             ->lastCreatedRestaurants(6);
-        dd($restaurants);
+        $restaurantsPicture = $doctrine->getRepository(RestaurantPicture::class)->findAll();
+        return new Response(
+            $this->renderView(
+                "queries/first.html.twig",
+                [
+                    "restaurants"=>$restaurants,
+                    "restaurantsPicture"=>$restaurantsPicture
+                ]
+            )
+        );
     }
 
     /**
@@ -150,10 +159,16 @@ class RestaurantController extends AbstractController
      * Afficher la valeur moyenne de la note d'un restaurant
      */
     public function valeurMoyenneRestaurant(ManagerRegistry $doctrine){
-        $restaurant = $doctrine->getRepository(Restaurant::class)->find(3);
         $restaurantAvgValue = $doctrine->getRepository(Restaurant::class)
-            ->avgValueOfRestaunat($restaurant);
-        dd($restaurantAvgValue);
+            ->avgValueOfRestaunat();
+        return new Response(
+            $this->renderView(
+                "queries/two.html.twig",
+                [
+                    "restaurantAvgValue"=>$restaurantAvgValue
+                ]
+            )
+        );
     }
 
     /**
@@ -163,14 +178,21 @@ class RestaurantController extends AbstractController
     public function top3Restaurants(ManagerRegistry $doctrine){
         $top3restaurants = $doctrine->getRepository(Restaurant::class)
             ->theThreebestRestaurants();
-        dd($top3restaurants);
+        return new Response(
+            $this->renderView(
+                "queries/three.html.twig",
+                [
+                    "top3restaurants"=>$top3restaurants
+                ]
+            )
+        );
     }
 
     /**
      * @Route("/query/four", name="query.four")
      * Lister les restaurants et leurs détails (review, city..)
      */
-    public function restaurantsDetails(ManagerRegistry $doctrine){
+    public function restaurantsDetails(ManagerRegistry $doctrine):Response{
         $restaurants = $doctrine->getRepository(Restaurant::class)
             ->restaurantsDetails();
         dd($restaurants);
@@ -183,6 +205,14 @@ class RestaurantController extends AbstractController
     public function restaurantPasVote(ManagerRegistry $doctrine){
         $restaurants = $doctrine->getRepository(Restaurant::class)
             ->restaurantNotVoted();
-        dd($restaurants);
+        return new Response(
+            $this->renderView(
+                "queries/five.html.twig",
+                [
+                    "restaurants"=>$restaurants
+                ]
+            )
+        );
     }
+
 }

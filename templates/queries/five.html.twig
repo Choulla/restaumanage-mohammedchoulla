@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}all restaurants{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">restaurant</th>
+            <th scope="col">average value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+
+                <td>{{ restaurant.name }}</td>
+                <td>{{ restaurant.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

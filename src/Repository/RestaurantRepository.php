@@ -84,18 +84,17 @@ class RestaurantRepository extends ServiceEntityRepository
         )->setMaxResults($limit);
         return $query->getResult();
     }
-    public function avgValueOfRestaunat(Restaurant $restaurant){
+    public function avgValueOfRestaunat(){
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
             '
-            SELECT AVG(re.rating) 
+            SELECT AVG(re.rating) , r.name
             from App\Entity\Restaurant r , App\Entity\Review re
             WHERE r.id = re.restaurant_id
-            and r.id='.$restaurant->getId().'
             GROUP BY r.name
             '
         );
-        return $query->getSingleScalarResult();
+        return $query->getResult();
     }
     public function theThreebestRestaurants(){
         $entityManager = $this->getEntityManager();
@@ -126,7 +125,7 @@ class RestaurantRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
             '
-            SELECT r.name from App\Entity\Restaurant r
+            SELECT r.name , r.description from App\Entity\Restaurant r
             where r.id not in (
             select res.id 
             from App\Entity\Restaurant res, App\Entity\Review re

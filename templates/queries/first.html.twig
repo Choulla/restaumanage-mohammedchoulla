@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}all restaurants{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">logo</th>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">created at</th>
+            <th scope="col">city</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+
+                <th>
+                    {% for picture in restaurantsPicture %}
+                        {% if restaurant.getId() ==  picture.getRestaurantId().getId() %}
+                            <img style="width: 60%" src="{{ asset("assets/images/" ~ picture.getFilename() ~ "") }}" alt="">
+                        {% endif %}
+                    {% endfor %}
+                    <!--  -->
+                </th>
+                <td>{{ restaurant.getName() }}</td>
+                <td>{{ restaurant.getDescription() }}</td>
+                <td>{{ restaurant.getName() }}</td>
+                <td>{{ restaurant.getCityId().getName() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
